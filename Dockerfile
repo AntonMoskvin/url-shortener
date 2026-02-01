@@ -19,6 +19,6 @@ FROM eclipse-temurin:21-jre
 # ВАЖНО: задать WORKDIR ДО копирования
 WORKDIR /app
 
-COPY --from=builder /app/build/libs/url-shortener-*-SNAPSHOT.jar app.jar
+COPY --from=builder /app/build/libs/url-shortener-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
