@@ -3,10 +3,13 @@ FROM gradle:8.12-jdk21 AS builder
 
 WORKDIR /app
 
-# Копируем файлы для зависимостей (кэширование)
+# Копируем файлы
 COPY gradle gradle
 COPY gradlew .
 COPY build.gradle .
+
+# ВАЖНО: даём права на выполнение gradlew
+RUN chmod +x ./gradlew
 
 # Загружаем зависимости
 RUN ./gradlew dependencies --no-daemon
@@ -22,8 +25,6 @@ FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-# Копируем JAR из этапа builder
 COPY --from=builder /app/build/libs/url-shortener-*.jar app.jar
 
-# Запускаем
 ENTRYPOINT ["java", "-jar", "app.jar"]
