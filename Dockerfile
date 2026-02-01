@@ -6,7 +6,7 @@ WORKDIR /app
 # Копируем файлы для зависимостей (кэширование)
 COPY gradle gradle
 COPY gradlew .
-COPY build.gradle.kts .
+COPY build.gradle .
 
 # Загружаем зависимости
 RUN ./gradlew dependencies --no-daemon
